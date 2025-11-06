@@ -1,50 +1,38 @@
-# ClassesExtended
+# NumDays, TimeOff, and Personnel Report (Chapter 14)
 
-A C++ console application project designed to extend class-based programming concepts. Built using Visual Studio (or another C++ development environment) as part of a classroom assignment, this project expands on basic class structures to incorporate inheritance, polymorphism, and enhanced object interactions.
+A C++ console program that models employee work hours, vacation, and sick leave using object-oriented programming concepts. This project demonstrates **class composition**, **operator overloading**, and **data validation** through the `NumDays` and `TimeOff` classes.
 
----
+## Overview
+- The `NumDays` class stores hours worked and converts them to days (8 hours = 1 day).  
+- The `TimeOff` class stores employee information (name and ID) along with several `NumDays` objects to track:
+  - Maximum and used sick leave
+  - Maximum and used vacation time
+  - Maximum and used unpaid time
+- The program prompts the user for employee details, calculates available leave based on months worked, and displays a formatted personnel report.
 
-## Project Overview
+## Core Logic
+- `NumDays` Class:
+  - Stores `hours` and provides methods to convert to days (`getDays()`).
+  - Overloads operators `+`, `-`, prefix/postfix `++`, and prefix/postfix `--` to modify or combine hour values.
+- `TimeOff` Class:
+  - Contains `NumDays` objects for all time categories.
+  - Uses input validation to ensure vacation hours never exceed **240.0 hours** (company policy).
+  - Includes a helper function `calcMaxFromMonths(int months)` that:
+    - Grants **12 hours of vacation** and **8 hours of sick leave per month** worked.
+    - Caps vacation hours at 240.0.
+- Main program:
+  - Prompts for employee name, ID, and months worked.
+  - Creates a `TimeOff` object and calculates maximum leave values.
+  - Displays the results in a formatted summary using `setprecision(2)` and `fixed`.
 
-This project covers the following key concepts:
+## Input Validation
+- Negative month values are corrected to zero.
+- Vacation hours are capped at 240.0 (maximum accrual limit).
+- Employee information is read safely using `getline()` and validated for proper data types.
 
-- Defining base classes and derived classes (inheritance).  
-- Using virtual functions and polymorphism to allow dynamic behavior.  
-- Overloading constructors and member functions for flexibility.  
-- Aggregating and/or composing classes (objects within objects).  
-- Managing collections of objects (e.g., array or vector of base-class pointers).  
-- Input validation and formatted output for user-friendly interaction.  
-- Clear separation of class interface (`.hpp`) and implementation (`.cpp`), along with meaningful comments.
-
----
-
-## Features
-
-- Prompt the user to select or create different types of objects (e.g., a base class type vs derived class).  
-- Use polymorphism to handle derived-class objects via base-class pointers or references.  
-- Allow user to input attributes for each object type (name, id, specialized attributes).  
-- Process and display a list of objects with their specific behaviors (e.g., display details of a `Manager` vs `Employee`).  
-- Validate user input (non-empty strings, valid numeric ranges).  
-- Format console output neatly for readability (use of `iomanip`, tables, aligned columns).
-
----
-
-## Technologies Used
-
-- Language: C++ (compatible with C++11 or later)  
-- IDE: Visual Studio 2019/2022 (or any C++ compiler environment)  
-- Version Control: Git & GitHub  
-
----
-
-## Getting Started
-
-### Prerequisites
-
-You will need a system with a C++ compiler (Windows/Visual Studio preferred) and familiarity with basic C++ (classes, inheritance, polymorphism).
-
-### Clone the repository
-
-```bash
-git clone https://github.com/Javi1591/ClassesExtended.git
-cd ClassesExtended
+## Build & Run
+- Visual Studio (Windows): open the solution or create a Console App and add the source file, then **Build → Run**.
+- g++ (CLI):
+  ```bash
+  g++ -std=c++11 -O2 -o TimeOffReport nazarioCPP214.cpp
+  ./TimeOffReport
